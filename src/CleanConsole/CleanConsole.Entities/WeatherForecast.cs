@@ -8,8 +8,8 @@ public class WeatherForecast
     public Guid AccountId { get; set; }
     public DateTimeOffset Time { get; set; }
     public double Temperature { get; set; }
-    public string Unit { get; set; }
+    public string? Unit { get; set; }
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public Account Account { get; set; }
+    public Account? Account { get; set; }
 }

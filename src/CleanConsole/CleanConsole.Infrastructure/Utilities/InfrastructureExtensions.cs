@@ -12,7 +12,7 @@ public static class InfrastructureExtensions
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var dbOptions = configuration.GetRequiredSection("Database").Get<WeatherDbOptions>();
+        var dbOptions = configuration.GetRequiredSection("Database").Get<WeatherDbOptions>()!;
         dbOptions.Validate();
 
         services.AddDbContext<SimplifiedContext>(opt =>
@@ -21,12 +21,12 @@ public static class InfrastructureExtensions
             opt.UseSqlServer(connectionString);
         });
 
-        var weatherApiOptions = configuration.GetRequiredSection("WeatherApi").Get<WeatherApiOptions>();
+        var weatherApiOptions = configuration.GetRequiredSection("WeatherApi").Get<WeatherApiOptions>()!;
         weatherApiOptions.Validate();
 
         services.AddHttpClient<IWeatherApiClient, WeatherApiClient>(nameof(IWeatherApiClient), client =>
         {
-            client.BaseAddress = new Uri(weatherApiOptions.BaseUrl);
+            client.BaseAddress = new Uri(weatherApiOptions.BaseUrl!);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", weatherApiOptions.Token);
         });
 
